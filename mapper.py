@@ -21,6 +21,10 @@ def get_centroids(filepath):
 
 
 def mapper(centroids):
+    # dict to save centroids and its points
+    keys = [i for i in range(20)]
+    clusters = {key: [] for key in keys}
+
     # read lines from terminal
     for line in sys.stdin:
         line = line.strip()
@@ -35,7 +39,19 @@ def mapper(centroids):
         # pick the index of centroid with least distance
         centroid_ind = min(distances, key=distances.get)
         # print tab delimited values to the terminal for the reducer
-        print(centroid_ind, *coords, sep='\t')
+        # print(centroid_ind, *coords, sep='\t')
+        clusters[centroid_ind].append(coords)
+
+    # check for empty clusters and assign the cluster centroid as the point to the empty cluster
+    # then print it to the terminal for the reducer
+
+    for c in clusters:
+        if not clusters[c]:
+            clusters[c].append(centroids[c])
+        # for point in clusters[c]:
+        #     print(c, *point, sep='\t')
+    print(clusters.keys())
+    print([len(x) for x in clusters.values()])
 
 
 if __name__ == "__main__":

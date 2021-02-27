@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import sys
+from icecream import ic
 
 
 def remove_and_create_centroids():

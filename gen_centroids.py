@@ -40,4 +40,4 @@ def plus_plus(ds, k, random_state=42):
 if __name__ == "__main__":
     data = pd.read_csv('data/data.csv')
     centroids = plus_plus(data.values, k=20)
-    np.save('centroids.npy', centroids)
+    np.save('centroids2.npy', centroids)

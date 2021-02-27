@@ -22,6 +22,7 @@ def reducer():
         if current_centroid == centroid_ind:
             count += 1
             sum_arr += coords
+            new_centroids[centroid_ind] = sum_arr / count
         else:
             if count != 0:
                 new_centroids[centroid_ind] = sum_arr/count
@@ -34,6 +35,7 @@ def reducer():
         # print(*(sum_arr/count), sep=',')
         new_centroids[centroid_ind] = sum_arr / count
 
+    # check if there are 20 centroids, if not create random centroids
     for c_ind in new_centroids:
         print(*new_centroids[c_ind], sep=',')
 
