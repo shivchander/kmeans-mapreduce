@@ -25,6 +25,8 @@ def mapper(centroids):
     keys = [i for i in range(20)]
     clusters = {key: [] for key in keys}
 
+    # print(centroids.shape)
+
     # read lines from terminal
     for line in sys.stdin:
         line = line.strip()
@@ -44,14 +46,13 @@ def mapper(centroids):
 
     # check for empty clusters and assign the cluster centroid as the point to the empty cluster
     # then print it to the terminal for the reducer
-
     for c in clusters:
         if not clusters[c]:
             clusters[c].append(centroids[c])
-        # for point in clusters[c]:
-        #     print(c, *point, sep='\t')
-    print(clusters.keys())
-    print([len(x) for x in clusters.values()])
+        for point in clusters[c]:
+            print(c, *point, sep='\t')
+    # print(clusters.keys())
+    # print([len(x) for x in clusters.values()])
 
 
 if __name__ == "__main__":

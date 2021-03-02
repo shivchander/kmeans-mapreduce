@@ -19,16 +19,27 @@ def reducer():
         centroid_ind = values[0]
         coords = np.array(values[1:])
 
-        if current_centroid == centroid_ind:
+        # if current_centroid == centroid_ind:
+        #     count += 1
+        #     sum_arr += coords
+        #     new_centroids[centroid_ind] = sum_arr / count
+        # else:
+        #     # if count != 0:
+        #     new_centroids[centroid_ind] = sum_arr/count
+        #         # print(*(sum_arr/count), sep=',')
+        #     current_centroid = centroid_ind
+        #     sum_arr = coords
+
+        if centroid_ind in new_centroids:
             count += 1
             sum_arr += coords
-            new_centroids[centroid_ind] = sum_arr / count
+            new_centroids[centroid_ind] = sum_arr/count
         else:
-            if count != 0:
-                new_centroids[centroid_ind] = sum_arr/count
-                # print(*(sum_arr/count), sep=',')
-            current_centroid = centroid_ind
+            sum_arr = np.zeros(11)
+            count = 0
+            new_centroids[centroid_ind] = coords
             sum_arr = coords
+            count += 1
 
     # print last cluster's centroid
     if current_centroid == centroid_ind and count != 0:
