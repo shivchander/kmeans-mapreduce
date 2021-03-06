@@ -10,7 +10,7 @@ def remove_and_create_centroids():
 
     centroid_list = []
     for line in sys.stdin:
-        values = list(map(float, line.strip().split(',')))
+        values = list(map(float, line.strip().split(',')[:-2]))
         centroid_list.append(values)
 
     new_centroids = np.array(centroid_list)

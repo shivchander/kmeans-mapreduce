@@ -40,17 +40,19 @@ def mapper(centroids):
 
         # pick the index of centroid with least distance
         centroid_ind = min(distances, key=distances.get)
+        # min distance
+        cluster_dist = min(distances.values())
         # print tab delimited values to the terminal for the reducer
         # print(centroid_ind, *coords, sep='\t')
-        clusters[centroid_ind].append(coords)
+        clusters[centroid_ind].append((coords, cluster_dist))
 
     # check for empty clusters and assign the cluster centroid as the point to the empty cluster
     # then print it to the terminal for the reducer
     for c in clusters:
         if not clusters[c]:
-            clusters[c].append(centroids[c])
-        for point in clusters[c]:
-            print(c, *point, sep='\t')
+            clusters[c].append((centroids[c], 0))
+        for point, cdist in clusters[c]:
+            print(c, *point, cdist, sep='\t')
     # print(clusters.keys())
     # print([len(x) for x in clusters.values()])
 

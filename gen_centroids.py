@@ -4,18 +4,8 @@ import pandas as pd
 
 def plus_plus(ds, k, random_state=42):
     """
-    Create cluster centroids using the k-means++ algorithm.
-    Parameters
-    ----------
-    ds : numpy array
-        The dataset to be used for centroid initialization.
-    k : int
-        The desired number of clusters for which centroids are required.
-    Returns
-    -------
-    centroids : numpy array
-        Collection of k centroids as a numpy array.
-    Inspiration from here: https://stackoverflow.com/questions/5466323/how-could-one-implement-the-k-means-algorithm
+    Centroids generated using kmeans++ algorithm.
+    Source: https://stackoverflow.com/questions/5466323/how-could-one-implement-the-k-means-algorithm
     """
 
     np.random.seed(random_state)

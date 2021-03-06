@@ -10,6 +10,7 @@ def reducer():
     current_centroid = None
     sum_arr = np.zeros(11)
     count = 0
+    sse = 0
 
     new_centroids = {}
 
@@ -17,7 +18,8 @@ def reducer():
     for line in sys.stdin:
         values = list(map(float, line.split('\t')))
         centroid_ind = values[0]
-        coords = np.array(values[1:])
+        coords = np.array(values[1:-1])
+        cdist = values[-1]
 
         # if current_centroid == centroid_ind:
         #     count += 1
@@ -33,22 +35,24 @@ def reducer():
         if centroid_ind in new_centroids:
             count += 1
             sum_arr += coords
-            new_centroids[centroid_ind] = sum_arr/count
+            sse += cdist ** 2
+            new_centroids[centroid_ind] = {'coords': sum_arr/count, 'count': count, 'sse': sse}
+
         else:
-            sum_arr = np.zeros(11)
-            count = 0
-            new_centroids[centroid_ind] = coords
             sum_arr = coords
-            count += 1
+            sse = cdist ** 2
+            count = 1
+            new_centroids[centroid_ind] = {'coords': sum_arr/count, 'count': count, 'sse': sse}
 
     # print last cluster's centroid
     if current_centroid == centroid_ind and count != 0:
         # print(*(sum_arr/count), sep=',')
-        new_centroids[centroid_ind] = sum_arr / count
+        new_centroids[centroid_ind] = {'coords': sum_arr/count, 'count': count, 'sse': sse}
 
     # check if there are 20 centroids, if not create random centroids
     for c_ind in new_centroids:
-        print(*new_centroids[c_ind], sep=',')
+        print(*new_centroids[c_ind]['coords'], 'count: '+str(new_centroids[c_ind]['count']),
+              'sse: '+str(new_centroids[c_ind]['sse']), sep=',')
 
 
 if __name__ == '__main__':
